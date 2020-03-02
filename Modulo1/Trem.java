@@ -1,6 +1,6 @@
 public class Trem extends Veiculo{
-	int passageiros;
-	int capacidade;
+	protected int passageiros;
+	protected int capacidade;
 	
 	public Trem (int velocidade, int passageiros, int capacidade) {
 		super.velocidade = 0;
