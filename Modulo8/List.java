@@ -144,12 +144,10 @@ public class List {
     // Metodo remove o primeiro numero impar da lista       
     public boolean remove_impar() {
         Node current = firstNode;
-        Object primeiroImpar;
         if (isEmpty()) return false; 
         while (current != null) {
             if ((Integer)current.getData() % 2 != 0) {
-                primeiroImpar = current.getData();
-                this.remove(primeiroImpar);
+                this.remove(current.getData());
                 return true;
             }
             current = current.getNext();
