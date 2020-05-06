@@ -118,66 +118,41 @@ public class List {
         return true; 
     }   
 	   
-    // Tarefa
+// Tarefa
+    // Metodo inverte terceiro e quarto	elemento de posicao
     public boolean troca_ter_quarto() {
         Node current = firstNode;
-        Object thirdNode = null; 
-        Object fourthNode;
-        Node troca;
+        Node ter = firstNode; 
+        Node quarto = firstNode;
         int cont = 1;
         if (isEmpty()) return false; 
-        if (firstNode == lastNode) return false;
-        while (current.getNext() != null) {
+        while (current != null) {
             cont++;
             current = current.getNext();
+            if (cont == 3) ter = current;
+            if (cont == 4) quarto = current;
         }
-        if (cont >= 4) {
-            cont = 1;
-            current = firstNode;
-            while (current.getNext() != null) {
-                cont++;
-                current = current.getNext();
-                if (cont == 3) {
-                    thirdNode = current.getData();
-                    troca = current.getNext();
-                    fourthNode = troca.getData();
-                    current.setData(fourthNode);
-                }
-                if (cont == 4) {
-                    current.setData(thirdNode);
-                    return true; 
-                }
-            }
-        }
-        return false;
-    }
-           
-    public boolean remove_impar() {
-        Node current = firstNode;
-        Object elemento;
-        boolean encontrou = false;
-        if (isEmpty()) return false; 
-        if (firstNode == lastNode) {
-            if ((Integer)current.getData() %2 != 0) {
-                elemento = current.getData();
-                this.remove(elemento);
-                return true;
-            }
-            else return false;
-        } 
-        if ((Integer)current.getData() % 2 != 0) {
-            elemento = current.getData();
-            this.remove(elemento);
+        if (cont > 4) {
+            current = firstNode.getNext(); 
+            ter.setNext(quarto.getNext()); // 4º Node setNext p/ 5º elemento
+            current.setNext(quarto); // 2º Node setNext p/ "quarto" elemento
+            quarto.setNext(ter); // 3º Node setNext p/ "ter" elemento 
             return true;
         }
-        while (current.getNext() != null && encontrou == false) {
-            current = current.getNext();
-            if((Integer)current.getData()%2 != 0) {
-                encontrou = true;
-                elemento = current.getData();
-                this.remove(elemento);
+        else return false;
+    }
+    // Metodo remove o primeiro numero impar da lista       
+    public boolean remove_impar() {
+        Node current = firstNode;
+        Object primeiroImpar;
+        if (isEmpty()) return false; 
+        while (current != null) {
+            if ((Integer)current.getData() % 2 != 0) {
+                primeiroImpar = current.getData();
+                this.remove(primeiroImpar);
                 return true;
             }
+            current = current.getNext();
         }
         return false;
     }
