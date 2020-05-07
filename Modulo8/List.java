@@ -154,4 +154,32 @@ public class List {
         }
         return false;
     }
+    // Nova versao do metodo remove_impar sem o uso do metodo remove(Object o)    
+    public boolean remove_impar2(){
+ 	   Node current = firstNode;
+ 	   Node anterior = firstNode;
+
+ 	   if ( isEmpty() ) {
+ 		   return false;
+ 	   } 
+ 	   if (firstNode == lastNode) {
+ 		   if((Integer) current.getData() %2 != 0) {
+ 			   removeFromFront();
+ 			   return true;
+ 		   }
+ 	   }
+ 	   if ((Integer) firstNode.getData() %2 != 0) {
+ 		   removeFromFront();	
+ 		   return true;
+ 	   }
+ 	   while (current.getNext() != null) {
+ 		   anterior = current;
+ 		   current = current.getNext();
+ 		   if((Integer) current.getData() %2 != 0) {
+ 			   anterior.setNext(current.getNext());
+ 			   return true;
+ 		   }
+ 	   }
+ 	   return false;
+    }
 }
