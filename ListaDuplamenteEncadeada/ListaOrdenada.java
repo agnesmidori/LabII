@@ -73,58 +73,40 @@ public class ListaOrdenada {
 
 		System.out.println( "\n" );
 	}
-// Resolucao da Tarefa
-// Metodo insere String de forma que a lista fique sempre ordenada.
-public void insert(String s) {
+	// Resolucao da Tarefa
+	// Metodo insere String de forma que a lista fique sempre ordenada.
+	public void insert(String s) {
 		Node current = firstNode;
 		Node insereS = new Node (s);
-
+		
 		// Se a lista estiver vazia, insere s.
-		if (isEmpty()) firstNode = lastNode = insereS;
+		if (isEmpty()) insertAtFront(s);
 		else {
-			if (s.compareTo((String)current.getData()) < 0) {
-				if (current == firstNode && s.compareTo((String)current.getData()) < 0) {
-					firstNode.setPrevious(insereS);
-					insereS.setNext(firstNode);
-					firstNode = insereS;
-				}
-				else {
-					while (current != null) {
-						if (s.compareTo((String)current.getData()) < 0) {
-							insereS.setNext(current);
-							insereS.setPrevious(current.getPrevious());
-							current.setPrevious(insereS);
-							current.getPrevious().setNext(insereS);
-							break;
-						}
-						current = current.getNext();
-					} 
-				}
+			// Se é menor que o primeiro node, insere antes.
+			if (s.compareTo((String)firstNode.getData()) < 0) {
+				insertAtFront(s);
 			}
-			else if (s.compareTo((String)current.getData()) > 0) {
-				current = lastNode;
-				if (current == lastNode && s.compareTo((String)lastNode.getData()) > 0) {
-					lastNode.setNext(insereS);
-					insereS.setPrevious(lastNode);
-					lastNode = insereS;
-				}
-				else {
-					while (current != null) {
-						if (s.compareTo((String)current.getData()) > 0) {
-							insereS.setNext(current.getNext());
-							insereS.setPrevious(current);
-							current.getNext().setPrevious(insereS);
-							current.setNext(insereS);
-							break;
-						} 
-						current = current.getPrevious();
+			// Se é maior que o último node, insere depois.
+			else if (s.compareTo((String)lastNode.getData()) > 0) {
+				insertAtBack(s);
+			}
+			/* Caso contrario, procura na lista elemento maior, 
+			quando encontrar insere antes dele. */ 
+			else {
+				while (current != null) {
+					if (s.compareTo((String)current.getData()) < 0) {
+						current.getPrevious().setNext(insereS);
+						insereS.setPrevious(current.getPrevious());
+						insereS.setNext(current);
+						current.setPrevious(insereS);
+						break;
 					}
-
+					current= current.getNext();
 				}
 			}
 		}
 	}
-  // Metodo imprime do menor para o maior
+	// Metodo imprime do menor para o maior
 	public void printAscending() {
 		Node current = firstNode;
 		
